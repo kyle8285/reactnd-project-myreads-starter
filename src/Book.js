@@ -4,10 +4,12 @@ class Book extends React.Component {
   handleChange(e) {
     if (this.props.moveBook) {
       this.props.moveBook(this.props.book, e.target.value);
+      console.log('moving book')
     }
   }
   render() {
     const { book } = this.props;
+    book.shelf = book.shelf || 'none';
     return (
       <li>
         <div className="book">
@@ -24,7 +26,7 @@ class Book extends React.Component {
             </div>
           </div>
           <div className="book-title">{book.title}</div>
-          <div className="book-authors">{book.authors.join(', ')}</div>
+          <div className="book-authors">{book.authors ? book.authors.join(', ') : ''}</div>
         </div>
       </li>
     )
