@@ -37,6 +37,7 @@ class Search extends React.Component {
             <input type="text"
                    value={searchTerm}
                    onChange={(e) => this.onSearch(e)}
+                   autoFocus
                    placeholder="Search by title or author"/>
           </div>
         </div>
