@@ -10,7 +10,7 @@ class Search extends React.Component {
   }
 
   onSearch(e) {
-    const searchTerm = e.target.value.trim();
+    const searchTerm = e.target.value;
     if (searchTerm) {
       BooksAPI.search(searchTerm).then(searchResults => {
         this.setState({ searchTerm, searchResults })
