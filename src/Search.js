@@ -12,13 +12,23 @@ class Search extends React.Component {
 
   onSearch(e) {
     const searchTerm = e.target.value;
-    if (searchTerm) {
-      BooksAPI.search(searchTerm).then(searchResults => {
-        this.setState({ searchTerm, searchResults })
-      });
-    } else {
-      this.setState({ searchTerm, searchResults: [] })
-    }
+    const { allBooks } = this.props;
+
+    this.setState({ searchTerm })
+
+    BooksAPI.search(searchTerm).then(searchResults => {
+      // success returns array, error returns obj
+      if (Array.isArray(searchResults)) {
+        // set the shelf if applicable
+        searchResults.forEach(result => {
+          const bookOnShelf = allBooks.find(book => book.id === result.id);
+          if (bookOnShelf) result.shelf = bookOnShelf.shelf;
+        });
+      } else {
+          searchResults = [];
+      }
+      this.setState({ searchResults });
+    });
   }
 
   handleBookshelfChange(book, shelf) {
